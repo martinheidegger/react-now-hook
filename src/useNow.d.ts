@@ -19,11 +19,11 @@ export function useNowEffect(
   deps?: DependencyList,
 )
 
-export function useNowInnerTextRef(
+export function useNowInnerTextRef<T extends { innerText: string }>(
   format: NowFormat,
   msInterval: number = 1000,
   deps?: DependencyList,
-): React.Ref
+): React.MutableRefObject<T>
 
 export type NowSpanProps = Omit<HTMLAttributes<HTMLSpanElement>, 'ref'> & {
   format: NowFormat
