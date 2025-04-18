@@ -1,8 +1,11 @@
 import React from 'react'
 import { Temporal } from 'temporal-spec'
 
-export type NowEffect = (now: number) => void
-export type NowFormat = (now: number) => string
+export type NowEffect = (now: number, instant: Temporal.Instant | null) => void
+export type NowFormat = (
+  now: number,
+  instant: Temporal.Instant | null,
+) => string
 
 export const NowContext: React.Context<number | undefined>
 

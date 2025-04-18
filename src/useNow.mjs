@@ -36,8 +36,9 @@ function run() {
       const current = getNow(msInterval, now)
       if (current != check.prev) {
         check.prev = current
+        const instant = getInstant(current)
         for (const hook of check.hooks) {
-          hook(current)
+          hook(current, instant)
         }
       }
     }
