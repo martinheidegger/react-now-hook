@@ -24,6 +24,11 @@ export const getInstant = supportsInstant
   ? (now) => Temporal.Instant.fromEpochMilliseconds(now)
   : (_now) => null
 
+export const getNowInstant = supportsInstant
+  ? (msInterval, time) =>
+      Temporal.Instant.fromEpochMilliseconds(getNow(msInterval, time))
+  : (_msInterval, _time) => null
+
 const checks = new Map()
 
 let active = false
