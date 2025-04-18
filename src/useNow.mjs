@@ -9,6 +9,8 @@ import {
 
 export const NowContext = createContext(undefined)
 
+const second = 1000
+
 function getNow(msInterval, time = Date.now()) {
   return Math.floor(time / msInterval) * msInterval
 }
@@ -63,11 +65,13 @@ export function listen(msInterval, hook) {
 }
 
 export function NowSpan({ format, msInterval, ...props }) {
+  msInterval = msInterval ?? second
   const ref = useNowInnerTextRef(format, msInterval)
   return createElement('span', { ...props, ref })
 }
 
 export function useNow(msInterval) {
+  msInterval = msInterval ?? second
   const override = useContext(NowContext)
   const [now, setNow] = useState(getNow(msInterval, override))
   useNowEffect(setNow, msInterval)
@@ -75,6 +79,7 @@ export function useNow(msInterval) {
 }
 
 export function useNowInnerTextRef(format, msInterval, deps) {
+  msInterval = msInterval ?? second
   const ref = useRef()
   deps = [ref.current, format, ...(deps ?? [])]
   useNowEffect(
@@ -90,6 +95,7 @@ export function useNowInnerTextRef(format, msInterval, deps) {
 }
 
 export function useNowMemo(memo, msInterval, deps) {
+  msInterval = msInterval ?? second
   const override = useContext(NowContext)
   const [now, setNow] = useState(memo(getNow(msInterval, override)))
   deps = [memo, ...(deps ?? [])]
@@ -98,8 +104,8 @@ export function useNowMemo(memo, msInterval, deps) {
 }
 
 export function useNowEffect(hook, msInterval, deps) {
+  msInterval = msInterval ?? second
   const override = useContext(NowContext)
-  msInterval = msInterval ?? 1000
   deps = [hook, msInterval, override, ...(deps ?? [])]
   useEffect(() => {
     if (override !== null && override !== undefined) {
