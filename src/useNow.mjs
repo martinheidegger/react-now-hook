@@ -87,7 +87,11 @@ export function listen(msInterval, hook) {
 export function NowSpan({ format, msInterval, ...props }) {
   msInterval = msInterval ?? second
   const ref = useNowInnerTextRef(format, msInterval)
-  return createElement('span', { ...props, ref })
+  return createElement('span', {
+    suppressHydrationWarning: true,
+    ...props,
+    ref,
+  })
 }
 
 export function useNow(msInterval) {
