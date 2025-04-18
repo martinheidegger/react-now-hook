@@ -43,7 +43,12 @@ function run() {
         check.prev = current
         const instant = getInstant(current)
         for (const hook of check.hooks) {
-          hook(current, instant)
+          try {
+            hook(current, instant)
+          } catch (e) {
+            check.hooks.delete(hook)
+            console.error(e)
+          }
         }
       }
     }
