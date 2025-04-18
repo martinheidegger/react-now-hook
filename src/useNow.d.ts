@@ -13,8 +13,8 @@ export const supportsInstant: boolean
 export function getInstant(now: number): Temporal.Instant | null
 export function getNowInstant(msInterval: number, now: number): Temporal.Instant | null
 
-export type Destructor = () => void;
-export function listen(msInterval: number, hook: NowEffect): Destructor; 
+export type Destructor = () => void
+export function listen(msInterval: number, hook: NowEffect): Destructor
 
 export function useNow(msInterval: number = 1000): number
 export function useInstant(msInterval: number = 1000): Temporal.Instant | null
