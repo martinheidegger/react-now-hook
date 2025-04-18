@@ -7,5 +7,7 @@ export type FormattedTimeDisplayProps = {
 export const FormattedTimeDisplay = ({
   msInterval,
 }: FormattedTimeDisplayProps) => (
-  <p>{useNowMemo((time) => new Date(time).toString(), msInterval)}</p>
+  <p suppressHydrationWarning>
+    {useNowMemo((time) => new Date(time).toString(), msInterval)}
+  </p>
 )

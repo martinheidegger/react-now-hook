@@ -8,5 +8,5 @@ export const TimeRefDisplay = ({ msInterval }: TimeRefDisplayProps) => {
     (now) => `${now}`,
     msInterval,
   )
-  return <p ref={ref} />
+  return <p suppressHydrationWarning ref={ref} />
 }
