@@ -4,9 +4,10 @@ dist
 node_modules
 *.ts
 !src/useNow.d.ts
+src/example/*
 *.tsx
 .prettierrc
 .gitingore
 tsconfig*
-index.html
 *.tgz
+server.mjs

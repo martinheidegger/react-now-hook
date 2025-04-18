@@ -1,7 +1,7 @@
 import { FormattedTimeDisplay } from './FormattedTimeDisplay'
 import { TimeDisplay } from './TimeDisplay'
 import { TimeRefDisplay } from './TimeRefDisplay'
-import { NowContext, NowSpan } from './useNow'
+import { NowContext, NowSpan } from '../useNow'
 
 export const App = () => (
   <>

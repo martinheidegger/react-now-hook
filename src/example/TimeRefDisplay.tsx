@@ -1,4 +1,4 @@
-import { useNowInnerTextRef } from './useNow'
+import { useNowInnerTextRef } from '../useNow'
 
 export type TimeRefDisplayProps = {
   msInterval: number

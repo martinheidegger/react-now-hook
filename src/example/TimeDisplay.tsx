@@ -1,4 +1,4 @@
-import { useNow } from './useNow'
+import { useNow } from '../useNow'
 
 export type TimeDisplayProps = {
   msInterval: number

@@ -1,4 +1,4 @@
-import { useNowMemo } from './useNow'
+import { useNowMemo } from '../useNow'
 
 export type FormattedTimeDisplayProps = {
   msInterval: number
