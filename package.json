@@ -12,6 +12,9 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "temporal-spec": "*"
+  },
   "peerDependencies": {
     "react": "*"
   },

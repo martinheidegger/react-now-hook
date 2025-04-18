@@ -11,9 +11,18 @@ export const NowContext = createContext(undefined)
 
 const second = 1000
 
+export const supportsInstant = !!(
+  typeof Temporal !== 'undefined' &&
+  typeof Temporal.Instant !== 'undefined'
+)
+
 function getNow(msInterval, time = Date.now()) {
   return Math.floor(time / msInterval) * msInterval
 }
+
+export const getInstant = supportsInstant
+  ? (now) => Temporal.Instant.fromEpochMilliseconds(now)
+  : (_now) => null
 
 const checks = new Map()
 

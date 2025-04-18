@@ -1,10 +1,13 @@
 import React from 'react'
-import type { ReactHTMLElement, HTMLAttributes } from 'react'
+import { Temporal } from 'temporal-spec'
 
 export type NowEffect = (now: number) => void
 export type NowFormat = (now: number) => string
 
 export const NowContext: React.Context<number | undefined>
+
+export const supportsInstant: boolean
+export function getInstant(now: number): Temporal.Instant | null
 
 export type Destructor = () => void;
 export function listen(msInterval: number, hook: NowEffect): Destructor; 
