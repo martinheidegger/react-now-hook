@@ -12,8 +12,7 @@ export const NowContext = createContext(undefined)
 const second = 1000
 
 export const supportsInstant = !!(
-  typeof Temporal !== 'undefined' &&
-  typeof Temporal.Instant !== 'undefined'
+  typeof Temporal !== 'undefined' && typeof Temporal.Instant !== 'undefined'
 )
 
 function getNow(msInterval, time = Date.now()) {
