@@ -6,6 +6,9 @@ export type NowFormat = (now: number) => string
 
 export const NowContext: React.Context<number | undefined>
 
+export type Destructor = () => void;
+export function listen(msInterval: number, hook: NowEffect): Destructor; 
+
 export function useNow(msInterval: number = 1000): number
 export function useNowMemo<T>(
   hook: (time: number) => T,

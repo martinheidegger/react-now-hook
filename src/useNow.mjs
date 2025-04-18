@@ -34,7 +34,7 @@ function run() {
   globalThis.requestAnimationFrame(run)
 }
 
-function activate(msInterval, hook) {
+export function listen(msInterval, hook) {
   let check = checks.get(msInterval)
   if (!check) {
     check = {
@@ -104,7 +104,7 @@ export function useNowEffect(hook, msInterval, deps) {
     } else if (!window.requestAnimationFrame) {
       hook(getNow(msInterval, Date.now()))
     } else {
-      return activate(msInterval, hook)
+      return listen(msInterval, hook)
     }
   }, deps)
 }
