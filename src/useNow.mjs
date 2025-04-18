@@ -112,9 +112,9 @@ export function useNowInnerTextRef(format, msInterval, deps) {
   const ref = useRef()
   deps = [ref.current, format, ...(deps ?? [])]
   useNowEffect(
-    (time) => {
+    (time, instant) => {
       if (ref.current) {
-        ref.current.innerText = format(time)
+        ref.current.innerText = format(time, instant)
       }
     },
     msInterval,
