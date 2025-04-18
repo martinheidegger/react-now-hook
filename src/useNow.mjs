@@ -18,20 +18,23 @@ const checks = new Map()
 let active = false
 let prev = null
 function run() {
-  if (!active) return
   const now = Date.now()
-  if (now === prev) return
-  prev = now
-  for (const [msInterval, check] of checks.entries()) {
-    const current = getNow(msInterval, now)
-    if (current != check.prev) {
-      check.prev = current
-      for (const hook of check.hooks) {
-        hook(current)
+  if (active && now !== prev) {
+    prev = now
+    for (const [msInterval, check] of checks.entries()) {
+      const current = getNow(msInterval, now)
+      if (current != check.prev) {
+        check.prev = current
+        for (const hook of check.hooks) {
+          hook(current)
+        }
       }
     }
   }
-  globalThis.requestAnimationFrame(run)
+  // The called hooks might deactivate the background process
+  if (active) {
+    globalThis.requestAnimationFrame(run)
+  }
 }
 
 export function listen(msInterval, hook) {
@@ -48,7 +51,7 @@ export function listen(msInterval, hook) {
   if (!active) {
     active = true
     prev = null
-    run()
+    globalThis.requestAnimationFrame(run)
   }
   return () => {
     check.hooks.delete(hook)
