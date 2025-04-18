@@ -113,7 +113,6 @@ export function useInstant(msInterval) {
 export function useNowInnerTextRef(format, msInterval, deps) {
   msInterval = msInterval ?? second
   const ref = useRef()
-  deps = [ref.current, format, ...(deps ?? [])]
   useNowEffect(
     (time, instant) => {
       if (ref.current) {
@@ -121,7 +120,7 @@ export function useNowInnerTextRef(format, msInterval, deps) {
       }
     },
     msInterval,
-    deps,
+    [ref.current, format, ...(deps ?? [])],
   )
   const override = useContext(NowContext)
   const now = getNow(msInterval, override)
