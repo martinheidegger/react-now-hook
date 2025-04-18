@@ -94,8 +94,17 @@ export function useNow(msInterval) {
   msInterval = msInterval ?? second
   const override = useContext(NowContext)
   const [now, setNow] = useState(getNow(msInterval, override))
-  useNowEffect(setNow, msInterval)
+  useNowEffect((time) => setNow(time), msInterval)
   return now
+}
+
+export function useInstant(msInterval) {
+  msInterval = msInterval ?? second
+  const override = useContext(NowContext)
+  const now = getNow(msInterval, override)
+  const [instant, setInstant] = useState(getInstant(now))
+  useNowEffect((_, instant) => setInstant(instant), msInterval)
+  return instant
 }
 
 export function useNowInnerTextRef(format, msInterval, deps) {
@@ -119,7 +128,7 @@ export function useNowMemo(memo, msInterval, deps) {
   const override = useContext(NowContext)
   const [now, setNow] = useState(memo(getNow(msInterval, override)))
   deps = [memo, ...(deps ?? [])]
-  useNowEffect((time) => setNow(memo(time)), msInterval, deps)
+  useNowEffect((time, instant) => setNow(memo(time, instant)), msInterval, deps)
   return now
 }
 
@@ -128,10 +137,12 @@ export function useNowEffect(hook, msInterval, deps) {
   const override = useContext(NowContext)
   deps = [hook, msInterval, override, ...(deps ?? [])]
   useEffect(() => {
-    if (override !== null && override !== undefined) {
-      hook(getNow(msInterval, override))
-    } else if (!window.requestAnimationFrame) {
-      hook(getNow(msInterval, Date.now()))
+    if (
+      (override !== null && override !== undefined) ||
+      !window.requestAnimationFrame
+    ) {
+      const now = getNow(msInterval, override)
+      hook(now, getInstant(now))
     } else {
       return listen(msInterval, hook)
     }

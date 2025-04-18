@@ -17,6 +17,7 @@ export type Destructor = () => void;
 export function listen(msInterval: number, hook: NowEffect): Destructor; 
 
 export function useNow(msInterval: number = 1000): number
+export function useInstant(msInterval: number = 1000): Temporal.Instant | null
 export function useNowMemo<T>(
   hook: (time: number) => T,
   msInterval: number = 1000,
@@ -27,7 +28,7 @@ export function useNowEffect(
   hook: NowEffect,
   msInterval: number = 1000,
   deps?: DependencyList,
-)
+): void
 
 export function useNowInnerTextRef<T extends { innerText: string }>(
   format: NowFormat,
