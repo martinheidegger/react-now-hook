@@ -120,6 +120,12 @@ export function useNowInnerTextRef(format, msInterval, deps) {
     msInterval,
     deps,
   )
+  const override = useContext(NowContext)
+  const now = getNow(msInterval, override)
+  useEffect(() => {
+    if (!ref.current) return
+    ref.current.innerText = format(now, getInstant(now))
+  }, [ref.current, msInterval])
   return ref
 }
 
