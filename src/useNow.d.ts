@@ -1,5 +1,9 @@
 import React from 'react'
 import { Temporal } from 'temporal-spec'
+import type {
+  HTMLAttributes,
+  DependencyList,
+} from 'react'
 
 export type NowEffect = (now: number, instant: Temporal.Instant | null) => void
 
