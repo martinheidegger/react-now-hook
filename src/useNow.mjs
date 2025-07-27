@@ -8,6 +8,7 @@ import {
 } from 'react'
 
 export const NowContext = createContext(undefined)
+export const HTML_FORMAT = Symbol.for('react-now-hook:format():html')
 
 const second = 1000
 const minute = 60000
@@ -145,6 +146,11 @@ function useFormatSetter(ref, format) {
       actual = (num, tempObj) => format.format(tempObj ? tempObj : num)
     } else {
       throw new Exception('Format should be function or a formatter object')
+    }
+    if (format[HTML_FORMAT]) {
+      return (ref, ...args) => {
+        if (ref.current) ref.current.innerHTML = actual(...args)
+      }
     }
     return (...args) => {
       if (ref.current) ref.current.innerText = actual(...args)

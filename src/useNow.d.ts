@@ -3,15 +3,17 @@ import { Temporal } from 'temporal-spec'
 
 export type NowEffect = (now: number, instant: Temporal.Instant | null) => void
 
-export type DateTimeFormat = {
+export const HTML_FORMAT: unique symbol
+export type NowFormatObject = {
   // Typescript: format(...) typescript signature in Temporal tends to be not compatible
   format(instant?: unknown): str
+  [HTML_FORMAT]?: bool
 }
-export type NowFormatFn = (
-  now: number,
-  instant: Temporal.Instant | null,
-) => string
-export type NowFormat = DateTimeFormat | NowFormatFn
+export interface NowFormatFunction {
+  (now: number, instant: Temporal.Instant | null): string
+  [HTML_FORMAT]?: bool
+}
+export type NowFormat = NowFormatObject | NowFormatFunction
 
 export type UnsupportedUnits = 'microsecond' | 'nanosecond'
 export type SupportedUnits =
