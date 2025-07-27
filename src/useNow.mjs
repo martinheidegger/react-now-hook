@@ -10,10 +10,33 @@ import {
 export const NowContext = createContext(undefined)
 
 const second = 1000
+const minute = 60000
+const hour = 3600000
+const day = 86400000
+const stringInterval = {
+  second: second,
+  seconds: second,
+  minute: minute,
+  minutes: minute,
+  hour: hour,
+  hours: hour,
+  day: day,
+  days: day,
+  week: day,
+  weeks: day,
+  month: day,
+  months: day,
+  year: day,
+  years: day,
+}
 
 export const supportsInstant = !!(
   typeof Temporal !== 'undefined' && typeof Temporal.Instant !== 'undefined'
 )
+
+function resolveInterval(msInterval) {
+  return stringInterval[msInterval] ?? second
+}
 
 function getNow(msInterval, time = Date.now()) {
   return Math.floor(time / msInterval) * msInterval
@@ -155,4 +178,23 @@ export function useNowEffect(hook, msInterval, deps) {
       return listen(msInterval, hook)
     }
   }, deps)
+}
+
+function getDuration(instant, from, to, smallestUnit) {
+  from = from ?? instant
+  to = to ?? instant
+  if (!(to && from)) {
+    return null
+  }
+  const duration = from.until(to)
+  return duration.round(smallestUnit)
+}
+
+export function useDurationEffect(from, to, smallestUnit, hook, deps) {
+  const msInterval = resolveInterval(smallestUnit)
+  useNowEffect(
+    (_, instant) => hook(getDuration(instant, from, to, smallestUnit)),
+    msInterval,
+    [to, from, smallestUnit, hook, ...(deps ?? [])],
+  )
 }

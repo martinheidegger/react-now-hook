@@ -2,10 +2,18 @@ import React from 'react'
 import { Temporal } from 'temporal-spec'
 
 export type NowEffect = (now: number, instant: Temporal.Instant | null) => void
-export type NowFormat = (
-  now: number,
-  instant: Temporal.Instant | null,
-) => string
+
+export type UnsupportedUnits = 'microsecond' | 'nanosecond'
+export type SupportedUnits =
+  | 'year'
+  | 'month'
+  | 'week'
+  | 'day'
+  | 'hour'
+  | 'minute'
+  | 'second'
+  | 'millisecond'
+export type SmallestUnit = SupportedUnits | `${SupportedUnits}s`
 
 export const NowContext: React.Context<number | undefined>
 
@@ -45,3 +53,11 @@ export type NowSpanProps = Omit<HTMLAttributes<HTMLSpanElement>, 'ref'> & {
 }
 
 export function NowSpan(props: NowSpanProps): React.ReactNode
+
+export function useDurationEffect(
+  from: Temporal.Instant | null | undefined,
+  to: Temporal.Instant | null | undefined,
+  smallestUnit: SmallestUnit,
+  hook: (duration: Temporal.Duration) => void,
+  deps?: DependencyList,
+): void
