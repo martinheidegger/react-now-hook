@@ -133,24 +133,25 @@ export function useInstant(msInterval) {
   return instant
 }
 
+function useFormatSetter(ref, format) {
+  return useMemo(() => {
+    return (...args) => {
+      if (ref.current) ref.current.innerText = actual(...args)
+    }
+  }, [format, ref])
+}
+
 export function useNowInnerTextRef(format, msInterval, deps) {
   msInterval = msInterval ?? second
   const ref = useRef()
-  useNowEffect(
-    (time, instant) => {
-      if (ref.current) {
-        ref.current.innerText = format(time, instant)
-      }
-    },
-    msInterval,
-    [ref.current, format, ...(deps ?? [])],
-  )
   const override = useContext(NowContext)
-  const now = getNow(msInterval, override)
+  const setter = useFormatSetter(ref, format)
+  useNowEffect(setter, msInterval, [])
   useEffect(() => {
     if (!ref.current) return
-    ref.current.innerText = format(now, getInstant(now))
-  }, [ref.current, msInterval])
+    const now = getNow(msInterval, override)
+    setter(now, getInstant(now))
+  }, [ref.current, msInterval, override, ...(deps || [])])
   return ref
 }
 
