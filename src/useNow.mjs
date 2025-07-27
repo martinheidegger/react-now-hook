@@ -136,7 +136,7 @@ export function useInstant(msInterval) {
 function useFormatSetter(ref, format) {
   return useMemo(() => {
     return (...args) => {
-      if (ref.current) ref.current.innerText = actual(...args)
+      if (ref.current) ref.current.innerText = format(...args)
     }
   }, [format, ref])
 }
