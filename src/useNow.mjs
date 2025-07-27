@@ -135,8 +135,19 @@ export function useInstant(msInterval) {
 
 function useFormatSetter(ref, format) {
   return useMemo(() => {
+    let actual
+    if (typeof format === 'function') {
+      actual = format
+    } else if (
+      typeof format === 'object' &&
+      typeof format.format === 'function'
+    ) {
+      actual = (num, tempObj) => format.format(tempObj ? tempObj : num)
+    } else {
+      throw new Exception('Format should be function or a formatter object')
+    }
     return (...args) => {
-      if (ref.current) ref.current.innerText = format(...args)
+      if (ref.current) ref.current.innerText = actual(...args)
     }
   }, [format, ref])
 }

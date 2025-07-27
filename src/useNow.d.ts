@@ -2,10 +2,16 @@ import React from 'react'
 import { Temporal } from 'temporal-spec'
 
 export type NowEffect = (now: number, instant: Temporal.Instant | null) => void
-export type NowFormat = (
+
+export type DateTimeFormat = {
+  // Typescript: format(...) typescript signature in Temporal tends to be not compatible
+  format(instant?: unknown): str
+}
+export type NowFormatFn = (
   now: number,
   instant: Temporal.Instant | null,
 ) => string
+export type NowFormat = DateTimeFormat | NowFormatFn
 
 export type UnsupportedUnits = 'microsecond' | 'nanosecond'
 export type SupportedUnits =
