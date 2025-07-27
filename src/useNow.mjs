@@ -166,7 +166,6 @@ export function useNowMemo(memo, msInterval, deps) {
 export function useNowEffect(hook, msInterval, deps) {
   msInterval = msInterval ?? second
   const override = useContext(NowContext)
-  deps = [hook, msInterval, override, ...(deps ?? [])]
   useEffect(() => {
     if (
       (override !== null && override !== undefined) ||
@@ -177,7 +176,7 @@ export function useNowEffect(hook, msInterval, deps) {
     } else {
       return listen(msInterval, hook)
     }
-  }, deps)
+  }, [hook, msInterval, override, ...(deps ?? [])])
 }
 
 function getDuration(instant, from, to, smallestUnit) {
