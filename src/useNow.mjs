@@ -215,3 +215,19 @@ export function useDurationEffect(from, to, smallestUnit, hook, deps) {
     [to, from, smallestUnit, hook, ...(deps ?? [])],
   )
 }
+
+export function useDuration(from, to, smallestUnit) {
+  const override = useContext(NowContext)
+  const msInterval = resolveInterval(smallestUnit)
+  if (!from) {
+    from = getNowInstant(msInterval, override)
+  }
+  if (!to) {
+    to = getNowInstant(msInterval, override)
+  }
+  const [duration, setDuration] = useState(() =>
+    to && from ? from.until(to).round(smallestUnit) : null,
+  )
+  useDurationEffect(from, to, smallestUnit, setDuration, [])
+  return duration
+}

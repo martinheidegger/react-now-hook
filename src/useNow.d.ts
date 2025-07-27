@@ -73,3 +73,8 @@ export function useDurationEffect(
   hook: (duration: Temporal.Duration) => void,
   deps?: DependencyList,
 ): void
+export function useDuration(
+  from: Temporal.Instant | null | undefined,
+  to: Temporal.Instant | null | undefined,
+  smallestUnit: SmallestUnit,
+): Temporal.Duration
