@@ -2,6 +2,8 @@
 
 Very efficient and powerful hook to have time-dependent displays.
 
+[Live Example](https://martinheidegger.github.io/react-now-hook/)
+
 ## Install
 
 ```sh
