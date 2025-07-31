@@ -11,3 +11,4 @@ src/example/*
 tsconfig*
 *.tgz
 server.mjs
+index.html
