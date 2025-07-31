@@ -1,7 +1,8 @@
 {
   "files": [],
   "compilerOptions": {
-    "allowJs": true
+    "allowJs": true,
+    "target": "ES2024"
   },
   "references": [
     { "path": "./tsconfig.app.json" },

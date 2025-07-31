@@ -4,5 +4,8 @@ export type TimeDisplayProps = {
   msInterval: number
 }
 export const TimeDisplay = ({ msInterval }: TimeDisplayProps) => (
-  <p suppressHydrationWarning>{useNow(msInterval)}</p>
+  <p>
+    <code>useNow(msInterval={msInterval})</code>:{' '}
+    <span suppressHydrationWarning>{useNow(msInterval)}</span>
+  </p>
 )

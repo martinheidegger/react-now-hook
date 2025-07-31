@@ -1,7 +1,22 @@
 # React-Now-Hook
 
+Very efficient and powerful hook to have time-dependent displays.
+
+## Install
+
 ```sh
-npm i @leichtgewicht/react-now-hook
+npm i react-now-hook
+```
+
+## Quick Start
+
+```jsx
+import { useNow } from 'react-now-hook'
+
+const TimeDisplay = () => {
+  const now = useNow()
+  return <span>{now}</span>
+}
 ```
 
 ## Usage
@@ -14,7 +29,7 @@ import {
     useNowMemo,
     NowContext,
     NowSpan,
-} from '@leichtgewicht/react-now-hook'
+} from 'react-now-hook'
 
 const Time = ({
     msInterval // You can specify to which base it should round
@@ -23,7 +38,7 @@ const Time = ({
 const TimeWithRef = ({
     msInterval
 }) => {
-    // If you want to avoide state changes
+    // High performance,
     const ref = useNowInnerTextRef(
         time => `${time}`,
         msInterval
@@ -43,10 +58,10 @@ const App = () => {
         <Time />
         <Time round={250} />
         <TimeWithRef round={1} />
-        <NowContext.Provider value={0}>{/* Override the value of the time for tests */}
+        <NowProvider value={0}>{/* Override the value of the time for tests */}
             <Time/>
             <NowSpan format={time => `${time}`}>
-        </NowContext.Provider>
+        </NowProvider>
     <>
 }
 ```

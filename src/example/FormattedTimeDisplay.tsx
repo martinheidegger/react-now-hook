@@ -4,10 +4,14 @@ export type FormattedTimeDisplayProps = {
   msInterval: number
 }
 
+const format = (time: number) => new Date(time).toString()
+
 export const FormattedTimeDisplay = ({
   msInterval,
 }: FormattedTimeDisplayProps) => (
   <p suppressHydrationWarning>
-    {useNowMemo((time) => new Date(time).toString(), msInterval)}
+    <code>useNowMemo(time =&gt; new Date(time).toString(), {msInterval})</code>:
+    <br />
+    {useNowMemo(format)}
   </p>
 )
