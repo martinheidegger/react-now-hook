@@ -8,9 +8,7 @@
     "dev": "node server.mjs",
     "format": "prettier -w .",
     "lint": "prettier -c .",
-    "build": "npm run build:client && npm run build:server",
-    "build:client": "tsc -b && vite build --outDir dist/client",
-    "build:server": "tsc -b && vite build --outDir dist/server --ssr src/example/entry-server.tsx"
+    "build": "tsc -b && vite build --outDir dist/client && BUILD=1 node server.mjs"
   },
   "dependencies": {
     "temporal-spec": "*"
