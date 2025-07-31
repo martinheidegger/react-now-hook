@@ -10,7 +10,7 @@
     "lint": "prettier -c .",
     "build": "tsc -b && vite build --outDir dist/client && BUILD=1 node server.mjs"
   },
-  "dependencies": {
+  "optionalDependencies": {
     "temporal-spec": "*"
   },
   "peerDependencies": {
